@@ -1,6 +1,8 @@
 
 from customer_account import Customer_account
 from file_parser import FileParser
+
+# this Class is dealing with reading and writing to accounts.txt file
 class Datastore:
 
     def __init__(self):

@@ -5,6 +5,8 @@ from search_class import Search
 
 class UserMenu():
 
+# validates all balance inputs (for creating accounts and for making accounts transactions)
+#if input is invalid, returns false, else returns balance
     def prompt_for_balance_input(self, message):
 
         balance_valid = False
@@ -19,6 +21,7 @@ class UserMenu():
 
         return balance
 #----------------------------------------------------------------------------------------
+#validates user info input for creating new account, returns false when invalid, else returs user info
     def prompt_for_user_info(self, message):
         input_valid = False
 
@@ -34,6 +37,7 @@ class UserMenu():
         return user_info  
 
 #----------------------------------------------------------------------------------------
+#validates user PPS number input (alphanumeric only), returns false when invalid or PPSN input
     def prompt_for_PPSN_input(self, message):
         input_valid = False
 
@@ -48,6 +52,7 @@ class UserMenu():
 
         return PPSN_input     
 #----------------------------------------------------------------------------------------
+#validates user account number input (integer only) for transactions, returns false when invalid or account number in integer format  
     def prompt_for_account_number(self, message):
 
         account_number_valid = False 
@@ -62,6 +67,7 @@ class UserMenu():
 
         return account_number
 #---------------------------------------------------------------------------------------
+#validates user input for overdraft option (should be only Y, y, N, n characters), returns false when invalid or overdraft option input
     def prompt_for_overdraft_option(self, message):
 
         overdraft_option = None 
@@ -146,24 +152,27 @@ class UserMenu():
 
         return selection
 #--------------------------------------------------------------------------------------------------------
+# displays help info when user selects menu option number 8
     def user_help(self):
         self.clearscreen()
         print("*****************************************************")
         print("Thank you for using Banking Customer Management System!")
         print("When the App starts, please choose option from 1-9:")
         print("After choosing option 1-9 you will be asked to provide input for further operations")
-        print("Please, read carefully what input do you need to provide")
+        print("Please, read carefully what input you need to provide")
         print("Our helpline is accessable via phone 111-333-444 or by email helpline@bankingapp.centralbank.com")
         Util.press_return("Press return to go back to the main menu")   
 
 
 #--------------------------------------------------------------------------------------------------------
+# saves all accounts in the system to accounts.txt file - option 7 user menu
     def save_data_tofile(self,filename, ds):
         file_parser = FileParser()
         file_parser.write_customer_accounts(filename, ds.customer_accounts)
         Util.press_return(f"Your data is saved in file {filename}. Press return to continue...")
      
 #--------------------------------------------------------------------------------------------------------
+# displays list of all accounts in the system - option 1 in the user menu
     def view_customer_accounts(self, ds):
         self.clearscreen()
         print ("List of all accounts")
@@ -175,6 +184,7 @@ class UserMenu():
 
         Util.press_return("Press return to continue")     
 #---------------------------------------------------------------------------------------------------------
+# makes money withdrawal from account provided by user - option 5 in the user menu
     def withdraw_funds(self,ds):
         account_number = self.prompt_for_account_number("Enter the account number for withdrawal: ")
         account_to_withdraw = Search.search_by_account_number(ds,account_number)
@@ -188,6 +198,7 @@ class UserMenu():
             Util.press_return("Press return to continue")     
 
 #---------------------------------------------------------------------------------------------------------
+# makes transfer between accounts provided by user - option 4 in the user menu
     def transfer_funds(self,ds):     
         
         sender_account_number = self.prompt_for_account_number("Enter the sender account number: ")
@@ -218,6 +229,7 @@ class UserMenu():
                     
                   
 #--------------------------------------------------------------------------------------------------------
+# makes a deposit to account number provided by user  - option 6 in the user menu 
     def deposit_funds(self,ds):
         account_number= self.prompt_for_account_number("Enter the account number for deposit: ")
         account_to_deposit = Search.search_by_account_number(ds,account_number)
@@ -230,6 +242,9 @@ class UserMenu():
                 print(f"Account N {account_number} not found. Please check the input and try again")   
                 Util.press_return("Press return to continue")       
 #---------------------------------------------------------------------------------------------------------
+#creates new account with user deatails provided
+#if it is deposit account - opening balance is 50 by default, if current account - 25
+# interest rate =2% by deafault
     def add_customer_accounts(self, ds):
         print("Add a new customer account")
         print("===========================\n")
@@ -257,7 +272,7 @@ class UserMenu():
                 print("Invalid account type. Please enter 1 for deposit account, 2 for current account")
                 account_type = None
                 continue
-                          
+        #creates new account object and appends it to the account list in Datastore class                 
         customer_account = Customer_account(firstname, lastname, PPSN,str_account_type, overdraft.upper(), balance, interest_rate=2.0)
         ds.add_customer_account(customer_account)
         print(f"Account N {customer_account._account_number} for {customer_account.firstname} {customer_account.lastname} has been created")

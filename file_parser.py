@@ -23,7 +23,8 @@ class FileParser():
             customer_accounts.append(account)
         
         return customer_accounts
-
+#--------------------------------------------------------------------------
+# reads lines from file accounts.txt and builds new Customer_account object using this info
     def parse_customer_accounts_text(self, accounts_text):
 
         fields = accounts_text.split("|")
@@ -39,7 +40,9 @@ class FileParser():
         #def __init__(self, firstname, lastname, PPSN,account_type, overdraft, balance, interest_rate, account_number=0):
         return Customer_account(firstname, lastname, PPSN, account_type, overdraft, balance, interest_rate,account_number)
 
-
+#-------------------------------------------------------------------------------------------
+# for each Customer account object in the programs writes line in the file accounts.txt to store data about this object
+#1 object - 1 line in the file separated | symbol
     def write_customer_accounts(self, filename, customer_accounts):
         
 

@@ -1,6 +1,6 @@
 from util import Util
 
-
+# this class is dealing with 2 accounts search options - search by account number, saerch by PPS number
 class Search:
 
     @staticmethod

@@ -1,7 +1,8 @@
 # class Customer_account:
 from util import Util
 
-
+# when creating new Customer account instance, we automatically assign new account number adding 1 to the previous account number
+# and store next account number as a class property
 class Customer_account:
 
     next_account_number = 1
@@ -25,14 +26,15 @@ class Customer_account:
         self._interest_rate = interest_rate
     
 
-
+# this method displays list of all accounts crerated in the system matching the PPS number provived by user
     def print_search_results(self):
         repr = f"{self.firstname.ljust(10)} {self.lastname.ljust(15)} "
         repr = repr + f"{self.PPSN.ljust(10)} {str(self.account_number).ljust(10)} {self.account_type.ljust(15)} {self.overdraft.ljust(15)} "
         repr = repr + f"{float(self.interest_rate)}%"
 
         return repr
-        
+
+# this method displas list of all accounts crerated in the system    
 
     def __repr__(self):
         repr = f"{self.firstname.ljust(15)} {self.lastname.ljust(15)} "
@@ -40,13 +42,15 @@ class Customer_account:
         repr = repr + f"{self.interest_rate}"
 
         return repr
-    #def __init__(self, firstname, lastname, PPSN,account_type, overdraft, balance, interest_rate, account_number=0):
-    
-    
+
+# this method prepares customer accounts data for writnig in the txt file    
     def file_text(self):
     
         return f"{self.firstname}|{self.lastname}|{self.PPSN}|{self.account_type}|{self.overdraft}|{self.balance:.2f}|{self.interest_rate}|{self.account_number}" 
 
+# this method updates customer accounts data when user makes transactions
+#when account has no overdraft option and transaction sum insuffisient to withdraw, whole transaction cancels
+# if new balance >10000 euro, interest rate updates to 5%
     def update(self, new_balance,ds):
         overdraft = self.overdraft
         #print(f"Your current balance = {self.balance}")
@@ -63,6 +67,7 @@ class Customer_account:
             Util.press_return("Press return to continue...")    
         return True
 
+# setters and getters
     @property
     def account_number(self):
         return self._account_number
