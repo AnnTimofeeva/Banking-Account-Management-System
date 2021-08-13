@@ -1,4 +1,5 @@
 # class Customer_account:
+# DEmonstration
 from util import Util
 
 # when creating new Customer account instance, we automatically assign new account number adding 1 to the previous account number
