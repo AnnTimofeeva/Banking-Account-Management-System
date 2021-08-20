@@ -1,5 +1,5 @@
 # class Customer_account:
-# DEmonstration
+# Demonstration of git commands
 from util import Util
 
 # when creating new Customer account instance, we automatically assign new account number adding 1 to the previous account number
